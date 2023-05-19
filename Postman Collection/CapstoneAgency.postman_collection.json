@@ -1,0 +1,456 @@
+{
+    "info": {
+        "_postman_id": "c702f2b3-5966-4de7-ac55-0cf16aa7d4b8",
+        "name": "CapstoneAgency",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "6026300"
+    },
+    "item": [{
+            "name": "Casting Assistant",
+            "item": [{
+                    "name": "getMovies",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_ASSISTANT_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/movies",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "movies"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getActors",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_ASSISTANT_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/actors",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Casting Director",
+            "item": [{
+                    "name": "postActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_DIRECTOR_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\":\"SRK\",\r\n    \"age\":\"55\",\r\n    \"gender\":\"Male\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/actors",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getMovies",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_DIRECTOR_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/movies",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "movies"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "deleteActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_DIRECTOR_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/actors/1",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getActors",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_DIRECTOR_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/actors",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{CASTING_DIRECTOR_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "PATCH",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\":\"Hema\",\r\n    \"age\":\"66\",\r\n    \"gender\":\"Female\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/actors/2",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors",
+                                "2"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Excutive Producer",
+            "item": [{
+                    "name": "deleteMovie",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/movies/1",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "movies",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "postMovie",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\":\"KANK\",\r\n    \"release_date\":\"15/04/2022\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/movies",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "movies"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "postActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\":\"HEma\",\r\n    \"age\":\"66\",\r\n    \"gender\":\"Female\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/actors",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getMovies",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/movies",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "movies"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "deleteActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/actors/1",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getActors",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{HOST}}/actors",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateActor",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "PATCH",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\":\"BHAWNA\",\r\n    \"age\":\"22\",\r\n    \"gender\":\"female\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/actors/1",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateMovie",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [{
+                                "key": "token",
+                                "value": "{{EXECUTIVE_PRODUCER_JWT}}",
+                                "type": "string"
+                            }]
+                        },
+                        "method": "PATCH",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\":\"kKKG\",\r\n    \"release_date\":\"25/3/2021\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{HOST}}/actors/1",
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "actors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
