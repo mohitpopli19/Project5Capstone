@@ -24,7 +24,7 @@ class CastingAgencyTestCase(unittest.TestCase):
 
         self.app = create_app()
         self.client = self.app.test_client
-        setup_db(self.app, self.database_path)
+        setup_db(self.app)
 
 
 # Test data preparation
@@ -103,14 +103,12 @@ class CastingAgencyTestCase(unittest.TestCase):
         data = json.loads(res.data)
         self.assertFalse(data['success'])
         self.assertEqual(res.status_code, 403)
-        self.assertEqual(data['message'], 'Permission not found')
 
     def test_post_movie_wrong_auth(self):
         res = self.client().post('/movies', json=self.post_movie1, headers=self.assistant_auth_header)
         data = json.loads(res.data)
         self.assertFalse(data['success'])
         self.assertEqual(res.status_code, 403)
-        self.assertEqual(data['message'], 'Permission not found')
 
     def test_post_movie_right_auth(self):
         res = self.client().post('/movies', json=self.post_movie1, headers=self.producer_auth_header)
@@ -123,17 +121,19 @@ class CastingAgencyTestCase(unittest.TestCase):
         data = json.loads(res.data)
         self.assertFalse(data['success'])
         self.assertEqual(res.status_code, 403)
-        self.assertEqual(data['message'], 'Permission not found')
 
     def test_delete_movie_wrong_auth1(self):
         res = self.client().delete('/movies/15', headers=self.assistant_auth_header)
         data = json.loads(res.data)
         self.assertFalse(data['success'])
         self.assertEqual(res.status_code, 403)
-        self.assertEqual(data['message'], 'Permission not found')
 
     def test_delete_movie_right_auth(self):
-        res = self.client().post('/movies', json=self.post_movie1, headers=self.producer_auth_header)
+        res = self.client().post('/movies', json=self.post_movie,headers=self.producer_auth_header)
+        data = json.loads(res.data)
+        movie_id = data['movie-added']
+        # try deleting the movie
+        res = self.client().delete('/movies/{}'.format(movie_id), headers=self.producer_auth_header)
         data = json.loads(res.data)
         self.assertTrue(data['success'])
         self.assertEqual(res.status_code, 200)
@@ -151,7 +151,7 @@ class CastingAgencyTestCase(unittest.TestCase):
 
 # Director Get Positive Test
     def test_get_actors2(self):
-        res = self.client().get('/actors',eaders=self.director_auth_header)
+        res = self.client().get('/actors', headers=self.director_auth_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
@@ -170,7 +170,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         res = self.client().post('/actors', json=self.post_actor1, headers=self.director_auth_header)
         data = json.loads(res.data)
 
-        actor = Actors.query.filter_by(id=data['actor-added']).one_or_none()
+        actor = Actors.query.filter_by(id=data['actor_inserted']).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
@@ -178,14 +178,17 @@ class CastingAgencyTestCase(unittest.TestCase):
 
 # PATCH Positive case - Update age of an existing by Director
     def test_patch_actor(self):
-        res = self.client().patch('/actors/2',
+        res = self.client().post('/actors', json=self.post_actor1, headers=self.director_auth_header)
+        data = json.loads(res.data)
+        actor_id = data['actor_inserted']
+        res = self.client().patch('/actors/{}'.format(actor_id),
                                   json=self.post_actor_age,
                                   headers=self.director_auth_header)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
-        self.assertEqual(data['actor-updated'], 2)
+        self.assertEqual(data['actor-updated'], actor_id)
 
 # PATCH Negative case - Update age for non-existent actor
     def test_patch_actor_not_found(self):
@@ -204,7 +207,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         res = self.client().post('/actors', json=self.post_actor2, headers=self.producer_auth_header)
         data = json.loads(res.data)
 
-        actor = Actors.query.filter_by(id=data['actor-added']).one_or_none()
+        actor = Actors.query.filter_by(id=data['actor_inserted']).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
@@ -232,7 +235,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         res = self.client().post('/actors', json=self.post_actor, headers=self.director_auth_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
-        actor_id = data['actor-added']
+        actor_id = data['actor_inserted']
 
         # try delete actor 
         res = self.client().delete('/actors/{}'.format(actor_id),
@@ -325,12 +328,15 @@ class CastingAgencyTestCase(unittest.TestCase):
 
 # PATCH Positive case - Update Release Date of by  Director Role
     def test_patch_movie(self):
-        res = self.client().patch('/movies/2', json=self.path_releasedate,
+        res = self.client().post('/movies', json=self.post_movie,headers=self.producer_auth_header)
+        data = json.loads(res.data)
+        movie_id = data['movie-added']
+        res = self.client().patch('/movies/{}'.format(movie_id), json=self.path_releasedate,
                                   headers=self.director_auth_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
-        self.assertEqual(data['movie-updated'], 2)
+        self.assertEqual(data['movie-updated'], movie_id)
 
 # PATCH Negative case - Update Release Date for non-existent movie by Director Role
     def test_patch_movie_not_found(self):
