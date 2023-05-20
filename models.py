@@ -6,8 +6,9 @@ from dotenv import load_dotenv
 
 db = SQLAlchemy()
 
-DATABASE_PATH = os.environ.get("DATABASE_URL")
 load_dotenv()
+DATABASE_PATH = os.environ.get('DATABASE_URL')
+
 
 def setup_db(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_PATH
