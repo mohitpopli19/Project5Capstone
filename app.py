@@ -4,16 +4,17 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from models import setup_db, Actors, Movies
 from auth import AuthError, requires_auth
+from dotenv import load_dotenv
 
 
 Number_Of_Questions_Per_Page = 12
+load_dotenv()
 
 
 def create_app(test_config=None):
     # create and configure the app
-
     app = Flask(__name__)
-    app.config.from_object('config')
+    # app.config.from_object('config')
     setup_db(app)
     CORS(app)
 

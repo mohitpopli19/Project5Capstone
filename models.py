@@ -2,13 +2,15 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import Column, Date, Integer, String
+from dotenv import load_dotenv
 
 db = SQLAlchemy()
 
-# DATABASE_PATH = os.environ['SQLALCHEMY_DATABASE_URI']
+DATABASE_PATH = os.environ.get("DATABASE_URL")
+load_dotenv()
 
 def setup_db(app):
-    # app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_PATH
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_PATH
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     migrate = Migrate(app, db)
